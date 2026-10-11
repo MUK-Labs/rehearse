@@ -80,7 +80,7 @@ const fixture = id => ({ id, title: id, pdf: `${id}.pdf`, tempo: 90,
 });
 const deferred = () => { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; };
 
-async function harness({ pageGate, badPiece } = {}) {
+async function harness({ pageGate, badPiece, query = '?piece=First' } = {}) {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   const body = new Element('body'), ids = new Map();
   for (const match of html.matchAll(/<([\w-]+)\b([^>]*\bid="([^"]+)"[^>]*)>/g)) {
@@ -115,11 +115,12 @@ async function harness({ pageGate, badPiece } = {}) {
     }
     return { ok: true, arrayBuffer: async () => new ArrayBuffer(1) };
   };
+  const location = { href: `https://example.test/rehearse/${query}` };
   const context = vm.createContext({ document, window: { addEventListener() {} }, pdfjs, PianoPlayer: Player,
     parseMidi: () => ({ duration: 16, notes: [{ midi: 60, time: 0, duration: 1, velocity: 1 }],
       tempos: [{ beat: 0, bpm: 96 }], timeSignatures: [{ beat: 0, numerator: 4, denominator: 4 }] }),
     validatePiece, currentBar, inferBars, regionParts, structuredClone, URL, Blob, console, fetch,
-    location: { href: 'https://example.test/rehearse/?piece=First' }, history: { replaceState() {} },
+    location, history: { replaceState(_state, _title, url) { location.href = String(url); } },
     devicePixelRatio: 1, innerHeight: 900, requestAnimationFrame() {}, setTimeout() {},
     localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value) },
   });
@@ -139,6 +140,56 @@ test('boot renders the selected library score, maps and locally hosted piano con
   assert.equal(h.document.querySelectorAll('.bar-marker').length, 2);
   assert.match(h.app.player.sampleUrls[60], /\/rehearse\/assets\/piano\/C4\.mp3$/);
   assert.match(h.pdfCalls[0].wasmUrl, /\/rehearse\/vendor\/pdfjs\/wasm\/$/);
+  assert.equal(h.document.body.classList.contains('fullscreen'), false);
+  assert.equal(h.app.player.tempo, 90);
+});
+
+test('fullscreen and bpm URL options retain piece selection and initialize readable playback controls', async () => {
+  const h = await harness({ query: '?piece=Second&fullscreen=1&bpm=72' });
+  assert.equal(h.document.body.classList.contains('fullscreen'), true);
+  await h.boot;
+  assert.equal(h.app.state.piece.id, 'Second');
+  assert.equal(h.app.player.tempo, 72);
+  assert.equal(h.ids.get('tempo').value, '72');
+  assert.equal(h.ids.get('tempo-range').value, '72');
+  assert.equal(h.app.player.playing, false);
+  await h.ids.get('edit-toggle').click();
+  assert.equal(h.document.body.classList.contains('mapping'), true);
+  assert.equal(h.document.body.classList.contains('fullscreen'), true);
+  await h.ids.get('edit-close').click();
+  assert.equal(h.document.body.classList.contains('mapping'), false);
+  assert.equal(h.document.body.classList.contains('fullscreen'), true);
+});
+
+test('URL tempo wins over saved-map tempo on reload and survives changing library pieces', async () => {
+  const h = await harness({ query: '?piece=First&fullscreen=1&bpm=72' }); await h.boot;
+  const saved = structuredClone(h.app.state.piece); saved.tempo = 110;
+  h.storage.set(h.app.state.storageKey, JSON.stringify({ source: h.app.state.sourceKey, piece: saved }));
+  await h.app.loadLibraryPiece('First');
+  assert.equal(h.app.player.tempo, 72);
+  assert.equal(h.ids.get('tempo').value, '72');
+  assert.equal(h.ids.get('tempo-range').value, '72');
+  h.ids.get('tempo').value = '100'; await h.ids.get('tempo').dispatch('change');
+  assert.equal(h.app.player.tempo, 100);
+  await h.app.loadLibraryPiece('Second');
+  assert.equal(h.app.player.tempo, 72);
+  assert.equal(h.ids.get('tempo').value, '72');
+  assert.equal(h.ids.get('tempo-range').value, '72');
+  const url = new URL(h.context.location.href);
+  assert.equal(url.searchParams.get('piece'), 'Second');
+  assert.equal(url.searchParams.get('fullscreen'), '1');
+  assert.equal(url.searchParams.get('bpm'), '72');
+  assert.equal(h.app.player.playing, false);
+});
+
+test('invalid URL options preserve the normal layout and the piece tempo', async () => {
+  for (const bpm of ['', 'nope', 'NaN', 'Infinity', '0', '-72', '19', '301']) {
+    const h = await harness({ query: `?piece=First&fullscreen=true&bpm=${encodeURIComponent(bpm)}` }); await h.boot;
+    assert.equal(h.document.body.classList.contains('fullscreen'), false);
+    assert.equal(h.app.player.tempo, 90, `bpm=${bpm}`);
+    assert.equal(h.ids.get('tempo').value, '90');
+    assert.equal(h.ids.get('tempo-range').value, '90');
+  }
 });
 
 test('score play markers, tempo and shared-region muting operate through the UI', async () => {

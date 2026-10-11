@@ -4,7 +4,7 @@ Your score. Your parts. Your tempo.
 
 A small, static rehearsal player: the original PDF stays at the centre, with a play button above each bar and a narrow strip of piano playback controls. Each piece lives in its own folder under `library/`.
 
-The link above is the intended GitHub Pages address; enable Pages as described below before sharing it.
+The player is hosted on GitHub Pages; each piece can be shared with its own direct link.
 
 ## Practising
 
@@ -15,6 +15,17 @@ The link above is the intended GitHub Pages address; enable Pages as described b
 - The **•••** menu includes automatic following, the original PDF, and file/map tools.
 
 All parts share one musical clock and use the bundled sampled piano. MIDI format 0/1, PPQ timing, note velocity and sustain pedal are supported. A click is required to start browser audio. Playback pauses when the page goes into the background.
+
+### Reading and tempo links
+
+Open [QuasiCampane at 72 bpm, full width](https://muk-labs.github.io/rehearse/?piece=QuasiCampane&fullscreen=1&bpm=72).
+
+| Parameter | Effect |
+| --- | --- |
+| `fullscreen=1` | Fits the score to the full screen width, hides the heading and footer, and keeps the narrow playback strip available. Useful on an iPad or music stand. |
+| `bpm=72` | Sets the starting tempo to 72 quarter notes per minute, overriding the piece's default and any saved map tempo. You can still change it using the controls. |
+
+Both parameters work independently and remain in the link when switching pieces. Valid `bpm` values are 20–300 and are rounded to whole beats per minute; absent or invalid values use the piece's tempo. Reading mode fills the browser viewport without requiring the browser's native fullscreen API. Omit `fullscreen=1` to return to the usual layout. Audio still starts only when you press Play or a bar button.
 
 ### About the QuasiCampane example
 
