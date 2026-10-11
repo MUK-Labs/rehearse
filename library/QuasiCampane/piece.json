@@ -1,0 +1,390 @@
+{
+  "id": "QuasiCampane",
+  "title": "QuasiCampane",
+  "subtitle": "Quasi campane · piano · bars 55–71",
+  "pdf": "score.pdf",
+  "tempo": 120,
+  "beatsPerBar": 4,
+  "meter": [
+    4,
+    4
+  ],
+  "firstBar": 55,
+  "durationBeats": 68,
+  "pageCount": 3,
+  "parts": [
+    {
+      "id": "md",
+      "label": "MD",
+      "midi": "md.mid"
+    },
+    {
+      "id": "ms",
+      "label": "MS",
+      "midi": "ms.mid"
+    }
+  ],
+  "bars": [
+    {
+      "number": 55,
+      "beat": 0,
+      "page": 1,
+      "x": 0.168067,
+      "y": 0.092637
+    },
+    {
+      "number": 56,
+      "beat": 4,
+      "page": 1,
+      "x": 0.554622,
+      "y": 0.092637
+    },
+    {
+      "number": 57,
+      "beat": 8,
+      "page": 1,
+      "x": 0.142857,
+      "y": 0.433492
+    },
+    {
+      "number": 58,
+      "beat": 12,
+      "page": 1,
+      "x": 0.517647,
+      "y": 0.433492
+    },
+    {
+      "number": 59,
+      "beat": 16,
+      "page": 1,
+      "x": 0.142857,
+      "y": 0.694774
+    },
+    {
+      "number": 60,
+      "beat": 20,
+      "page": 1,
+      "x": 0.537815,
+      "y": 0.694774
+    },
+    {
+      "number": 61,
+      "beat": 24,
+      "page": 2,
+      "x": 0.142857,
+      "y": 0.077197
+    },
+    {
+      "number": 62,
+      "beat": 28,
+      "page": 2,
+      "x": 0.514286,
+      "y": 0.077197
+    },
+    {
+      "number": 63,
+      "beat": 32,
+      "page": 2,
+      "x": 0.142857,
+      "y": 0.391924
+    },
+    {
+      "number": 64,
+      "beat": 36,
+      "page": 2,
+      "x": 0.541176,
+      "y": 0.391924
+    },
+    {
+      "number": 65,
+      "beat": 40,
+      "page": 2,
+      "x": 0.152941,
+      "y": 0.712589
+    },
+    {
+      "number": 66,
+      "beat": 44,
+      "page": 2,
+      "x": 0.569748,
+      "y": 0.712589
+    },
+    {
+      "number": 67,
+      "beat": 48,
+      "page": 3,
+      "x": 0.142857,
+      "y": 0.097387
+    },
+    {
+      "number": 68,
+      "beat": 52,
+      "page": 3,
+      "x": 0.564706,
+      "y": 0.097387
+    },
+    {
+      "number": 69,
+      "beat": 56,
+      "page": 3,
+      "x": 0.142857,
+      "y": 0.352732
+    },
+    {
+      "number": 70,
+      "beat": 60,
+      "page": 3,
+      "x": 0.403361,
+      "y": 0.352732
+    },
+    {
+      "number": 71,
+      "beat": 64,
+      "page": 3,
+      "x": 0.67395,
+      "y": 0.352732
+    }
+  ],
+  "regions": [
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.122328,
+      "width": 0.821849,
+      "height": 0.068884,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.192399,
+      "width": 0.821849,
+      "height": 0.064133,
+      "part": "ms"
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.269596,
+      "width": 0.821849,
+      "height": 0.062945,
+      "part": "ms"
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.451306,
+      "width": 0.821849,
+      "height": 0.068884,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.526128,
+      "width": 0.821849,
+      "height": 0.064133,
+      "part": "ms"
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.597387,
+      "width": 0.821849,
+      "height": 0.062945,
+      "part": "ms"
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.716152,
+      "width": 0.821849,
+      "height": 0.068884,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.787411,
+      "width": 0.821849,
+      "height": 0.064133,
+      "part": "ms"
+    },
+    {
+      "page": 1,
+      "x": 0.107563,
+      "y": 0.86342,
+      "width": 0.821849,
+      "height": 0.062945,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.099762,
+      "width": 0.821849,
+      "height": 0.068884,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.171021,
+      "width": 0.821849,
+      "height": 0.064133,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.247031,
+      "width": 0.821849,
+      "height": 0.062945,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.420428,
+      "width": 0.423529,
+      "height": 0.061758,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 2,
+      "x": 0.531092,
+      "y": 0.420428,
+      "width": 0.398319,
+      "height": 0.061758,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.491686,
+      "width": 0.821849,
+      "height": 0.051069,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.554632,
+      "width": 0.821849,
+      "height": 0.062945,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.735154,
+      "width": 0.821849,
+      "height": 0.058195,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.804038,
+      "width": 0.821849,
+      "height": 0.053444,
+      "part": "ms"
+    },
+    {
+      "page": 2,
+      "x": 0.107563,
+      "y": 0.868171,
+      "width": 0.821849,
+      "height": 0.058195,
+      "part": "ms"
+    },
+    {
+      "page": 3,
+      "x": 0.107563,
+      "y": 0.118765,
+      "width": 0.447059,
+      "height": 0.06057,
+      "part": "ms"
+    },
+    {
+      "page": 3,
+      "x": 0.554622,
+      "y": 0.118765,
+      "width": 0.37479,
+      "height": 0.06057,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 3,
+      "x": 0.107563,
+      "y": 0.188836,
+      "width": 0.447059,
+      "height": 0.053444,
+      "part": "ms"
+    },
+    {
+      "page": 3,
+      "x": 0.554622,
+      "y": 0.188836,
+      "width": 0.37479,
+      "height": 0.053444,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 3,
+      "x": 0.107563,
+      "y": 0.376485,
+      "width": 0.821849,
+      "height": 0.065321,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    },
+    {
+      "page": 3,
+      "x": 0.107563,
+      "y": 0.482185,
+      "width": 0.821849,
+      "height": 0.055819,
+      "parts": [
+        "md",
+        "ms"
+      ]
+    }
+  ],
+  "notes": "This excerpt retains printed bars 55–71. The source MIDI files are preserved unchanged and do not form a clean staff or hand split: MD contains the highest notes through bar 63, is then silent until bar 68, and duplicates MS from partway through bar 68 to the end. Shared score areas fade only when both parts are muted; the mapping is deliberately conservative. Neither MIDI contains a tempo event and the PDF has no tempo marking, so playback starts at 120 quarter-note beats per minute.",
+  "source": {
+    "pdf": "Haiku - Parsa 2nd Version.pdf",
+    "midiPpq": 96,
+    "midiEndTick": 6526,
+    "midiNoteCounts": {
+      "md": 99,
+      "ms": 374
+    },
+    "sharedNoteOnCount": 53,
+    "sharedEndingStartBeat": 54.604167,
+    "mapping": "Manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left."
+  }
+}

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f2ee">
+  <meta name="description" content="Rehearse with your score. Choose the parts, start at any bar, and find your tempo.">
+  <title>Rehearse</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%233f5953'/%3E%3Cpath d='M25 17L47 32L25 47Z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="toolbar" aria-label="Rehearsal controls">
+    <a class="wordmark" href="./" title="Rehearse home">rehearse<span>.</span></a>
+    <label class="piece-picker"><span class="sr-only">Library</span><select id="piece-select" aria-label="Choose a piece"><option>Loading library…</option></select></label>
+    <span class="divider"></span>
+    <div class="transport">
+      <button id="play" class="play-main" disabled aria-label="Play" title="Play / pause (Space)">▶</button>
+      <button id="stop" class="icon-button" disabled aria-label="Return to first bar" title="Return to first bar">↤</button>
+      <label class="bar-jump">Bar <select id="bar-select" aria-label="Start from bar" disabled></select></label>
+    </div>
+    <div id="parts" class="parts" aria-label="Audible parts"></div>
+    <label class="tempo"><span class="tempo-symbol" aria-hidden="true">♩</span><input id="tempo" type="number" min="20" max="300" value="120" aria-label="Tempo in quarter notes per minute" disabled><span>bpm</span></label>
+    <input id="tempo-range" class="tempo-range" type="range" min="20" max="240" value="120" aria-label="Tempo slider" disabled>
+    <button id="edit-toggle" class="quiet-button" aria-expanded="false" aria-controls="editor" disabled>Edit map</button>
+    <button id="menu-toggle" class="icon-button" aria-label="Open files and information" aria-expanded="false" aria-controls="file-menu">•••</button>
+  </header>
+  <div id="file-menu" class="file-menu" hidden>
+    <label class="menu-action" for="open-files">Open PDF + MIDI files<input id="open-files" type="file" accept=".pdf,.mid,.midi,.json" multiple class="sr-only"></label>
+    <p>Select one PDF and one or more MIDI files together. Include a <code>piece.json</code> to restore a map.</p>
+    <button id="download-map" class="menu-action" disabled>Download piece.json</button>
+    <label class="follow-option"><input id="follow" type="checkbox" checked> Follow the current bar</label>
+    <a id="pdf-link" href="#" target="_blank" rel="noopener">Open original PDF ↗</a>
+    <a href="https://github.com/MUK-Labs/rehearse#adding-a-piece" target="_blank" rel="noopener">Adding pieces & help ↗</a>
+    <a href="https://github.com/MUK-Labs/rehearse/blob/main/THIRD_PARTY.md" target="_blank" rel="noopener">Piano & software credits ↗</a>
+  </div>
+  <main id="main">
+    <section class="score-heading" aria-label="Piece information">
+      <div><p class="eyebrow">YOUR SCORE. YOUR PARTS. YOUR TEMPO.</p><h1 id="piece-title">Rehearse</h1></div>
+      <div class="score-hint"><span class="small-play">▶</span> Start at any bar</div>
+    </section>
+    <div id="status" class="status" role="status" aria-live="polite">Opening the score…</div>
+    <details id="piece-note" class="piece-note" hidden><summary>About these MIDI parts</summary><p></p></details>
+    <section id="score" class="score" aria-label="Interactive score"></section>
+    <footer><span>Rehearse · MUK-Labs</span><a href="https://github.com/MUK-Labs/rehearse">Made with Adrián Artacho · Source ↗</a></footer>
+  </main>
+  <aside id="editor" class="editor" aria-label="Score map editor" hidden>
+    <div class="editor-heading"><h2>Edit score map</h2><button id="edit-close" class="icon-button" aria-label="Close score map editor">×</button></div>
+    <p class="editor-intro">Place each bar’s play button and mark the areas belonging to each MIDI part.</p>
+    <label class="field">Piece title<input id="edit-title" type="text" maxlength="160"></label>
+    <div class="edit-tabs" role="group" aria-label="Mapping tool"><button id="mode-bars" aria-pressed="true">1 · Bar starts</button><button id="mode-regions" aria-pressed="false">2 · Part areas</button></div>
+    <section id="bar-tools">
+      <p class="instruction">Choose a bar, then click just above its beginning on the score. The next bar is selected automatically.</p>
+      <label class="field">Bar to place<select id="edit-bar"></select></label>
+      <div class="field-pair"><label class="field">Printed number<input id="edit-number" type="number" min="0" step="1"></label><label class="field">MIDI beat<input id="edit-beat" type="number" min="0" step="0.001"></label></div>
+      <p class="help">Beat 0 is the start of the MIDI. One beat = one quarter note.</p>
+      <div class="button-row"><button id="add-bar" class="quiet-button">+ Add bar</button><button id="remove-bar" class="quiet-button">Remove bar</button></div>
+      <p id="mapped-count" class="help"></p>
+    </section>
+    <section id="region-tools" hidden>
+      <p class="instruction">Select the audible parts in this area, then drag a rectangle around their notation. Shared areas fade only when all selected parts are off.</p>
+      <div id="region-parts" class="region-parts"></div>
+      <div id="region-list" class="region-list"></div>
+    </section>
+    <div class="editor-bottom"><button id="undo" class="quiet-button" disabled>Undo</button><button id="save-map" class="solid-button">Download map</button></div>
+    <p class="help">Changes are remembered in this browser. Download <code>piece.json</code> and put it in the piece’s library folder to share them.</p>
+    <button id="reset-map" class="text-button">Reset to the loaded map</button>
+  </aside>
+  <noscript><p class="status error">Rehearse needs JavaScript for score display and piano playback.</p></noscript>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
