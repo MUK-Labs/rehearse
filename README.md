@@ -112,3 +112,7 @@ For GitHub Pages, select **Settings → Pages → Source → GitHub Actions** an
 ## Credits
 
 A project by **Adrián Artacho / MUK-Labs**. PDF rendering uses Mozilla's PDF.js; the sampled piano uses Alexander Holm's Salamander Grand Piano. Versions, licenses and source links are in [THIRD_PARTY.md](THIRD_PARTY.md). Bundled score/MIDI material remains the supplied project material; no additional license is assigned here.
+
+---
+
+## [ToDo](https://trello.com/c/stSESbOv/112-%F0%9F%95%B9-rehearse)
