@@ -1,25 +1,47 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import { validatePiece, safePath, regionParts, currentBar, inferBars } from '../js/model.js';
 
-const fixture = JSON.parse(await readFile(new URL('../library/QuasiCampane/piece.json', import.meta.url), 'utf8'));
+// Unit cases use a fixed example; `npm run check` validates editable library maps.
+const fixture = {
+  id: 'TestScore', title: 'Test score', pdf: 'score.pdf', tempo: 27,
+  durationBeats: 12, pageCount: 2,
+  parts: [
+    {id:'md', label:'Right hand', midi:'md.mid'},
+    {id:'ms', label:'Left hand', midi:'ms.mid'},
+  ],
+  bars: [
+    {number:55, beat:0, page:1, x:0.1, y:0.2},
+    {number:56, beat:4, page:1, x:0.5, y:0.2},
+    {number:57, beat:8, page:2, x:0.1, y:0.2},
+  ],
+  regions: [
+    {parts:['md'], page:1, x:0.1, y:0.2, width:0.8, height:0.1},
+    {parts:['ms'], page:1, x:0.1, y:0.4, width:0.8, height:0.1},
+  ],
+};
 const copy = () => structuredClone(fixture);
 
-test('the supplied map preserves original bar numbering, the MIDI origin and shared areas', () => {
+test('maps accept separate, shared and unmapped score areas', () => {
   assert.equal(validatePiece(fixture), fixture);
-  assert.deepEqual(fixture.bars.map(bar => bar.number), Array.from({length:17}, (_,i) => 55+i));
-  assert.deepEqual(fixture.bars.map(bar => bar.beat), Array.from({length:17}, (_,i) => i*4));
-  assert.equal(fixture.durationBeats, 68);
-  assert.deepEqual([...new Set(fixture.bars.map(bar => bar.page))], [1,2,3]);
-  assert.ok(fixture.regions.some(region => regionParts(region).length > 1));
+  const shared = copy();
+  shared.regions[0].parts = ['md','ms'];
+  assert.equal(validatePiece(shared), shared);
+  const single = copy();
+  single.regions = [{part:'md', page:1, x:0.1, y:0.2, width:0.8, height:0.1}];
+  assert.equal(validatePiece(single), single);
+  const unmapped = copy();
+  unmapped.regions = [];
+  assert.equal(validatePiece(unmapped), unmapped);
 });
 
 test('playback selects the correct bar before and after a page boundary', () => {
   assert.equal(currentBar(fixture.bars, 0).number, 55);
-  assert.equal(currentBar(fixture.bars, 23.99).number, 60);
-  assert.equal(currentBar(fixture.bars, 24).number, 61);
-  assert.equal(currentBar(fixture.bars, 67.99).number, 71);
+  assert.equal(currentBar(fixture.bars, 7.99).number, 56);
+  assert.equal(currentBar(fixture.bars, 7.99).page, 1);
+  assert.equal(currentBar(fixture.bars, 8).number, 57);
+  assert.equal(currentBar(fixture.bars, 8).page, 2);
+  assert.equal(currentBar(fixture.bars, 11.99).number, 57);
 });
 
 test('new-file bar inference handles compound meter and a meter change', () => {
