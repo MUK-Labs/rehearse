@@ -3,7 +3,7 @@
   "title": "QuasiCampane",
   "subtitle": "Quasi campane · piano · bars 55–71",
   "pdf": "score.pdf",
-  "tempo": 120,
+  "tempo": 27,
   "beatsPerBar": 4,
   "meter": [
     4,
@@ -148,243 +148,184 @@
   "regions": [
     {
       "page": 1,
-      "x": 0.107563,
-      "y": 0.122328,
-      "width": 0.821849,
-      "height": 0.068884,
       "parts": [
-        "md",
-        "ms"
-      ]
+        "md"
+      ],
+      "x": 0.13448029891304347,
+      "y": 0.12209441878774495,
+      "width": 0.7925611413043478,
+      "height": 0.1024238380075466
     },
     {
       "page": 1,
-      "x": 0.107563,
-      "y": 0.192399,
-      "width": 0.821849,
-      "height": 0.064133,
-      "part": "ms"
-    },
-    {
-      "page": 1,
-      "x": 0.107563,
-      "y": 0.269596,
-      "width": 0.821849,
-      "height": 0.062945,
-      "part": "ms"
-    },
-    {
-      "page": 1,
-      "x": 0.107563,
-      "y": 0.451306,
-      "width": 0.821849,
-      "height": 0.068884,
       "parts": [
-        "md",
-        "ms"
-      ]
+        "md"
+      ],
+      "x": 0.1158491847826087,
+      "y": 0.450637523643102,
+      "width": 0.8106521739130435,
+      "height": 0.10717886186667686
     },
     {
       "page": 1,
-      "x": 0.107563,
-      "y": 0.526128,
-      "width": 0.821849,
-      "height": 0.064133,
-      "part": "ms"
-    },
-    {
-      "page": 1,
-      "x": 0.107563,
-      "y": 0.597387,
-      "width": 0.821849,
-      "height": 0.062945,
-      "part": "ms"
-    },
-    {
-      "page": 1,
-      "x": 0.107563,
-      "y": 0.716152,
-      "width": 0.821849,
-      "height": 0.068884,
       "parts": [
-        "md",
-        "ms"
-      ]
-    },
-    {
-      "page": 1,
-      "x": 0.107563,
-      "y": 0.787411,
-      "width": 0.821849,
-      "height": 0.064133,
-      "part": "ms"
-    },
-    {
-      "page": 1,
-      "x": 0.107563,
-      "y": 0.86342,
-      "width": 0.821849,
-      "height": 0.062945,
-      "part": "ms"
+        "md"
+      ],
+      "x": 0.11627717391304347,
+      "y": 0.7102123798642382,
+      "width": 0.8111854619565217,
+      "height": 0.10541943102935103
     },
     {
       "page": 2,
-      "x": 0.107563,
-      "y": 0.099762,
-      "width": 0.821849,
-      "height": 0.068884,
       "parts": [
-        "md",
-        "ms"
-      ]
+        "md"
+      ],
+      "x": 0.12756453804347825,
+      "y": 0.096586272118902,
+      "width": 0.8005740489130435,
+      "height": 0.1031583343734698
     },
     {
       "page": 2,
-      "x": 0.107563,
-      "y": 0.171021,
-      "width": 0.821849,
-      "height": 0.064133,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.247031,
-      "width": 0.821849,
-      "height": 0.062945,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.420428,
-      "width": 0.423529,
-      "height": 0.061758,
       "parts": [
-        "md",
-        "ms"
-      ]
+        "md"
+      ],
+      "x": 0.12095108695652174,
+      "y": 0.41341584015822874,
+      "width": 0.8058797554347825,
+      "height": 0.09845371712768713
     },
     {
       "page": 2,
-      "x": 0.531092,
-      "y": 0.420428,
-      "width": 0.398319,
-      "height": 0.061758,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.491686,
-      "width": 0.821849,
-      "height": 0.051069,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.554632,
-      "width": 0.821849,
-      "height": 0.062945,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.735154,
-      "width": 0.821849,
-      "height": 0.058195,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.804038,
-      "width": 0.821849,
-      "height": 0.053444,
-      "part": "ms"
-    },
-    {
-      "page": 2,
-      "x": 0.107563,
-      "y": 0.868171,
-      "width": 0.821849,
-      "height": 0.058195,
-      "part": "ms"
+      "parts": [
+        "md"
+      ],
+      "x": 0.11003736413043479,
+      "y": 0.7235317273626299,
+      "width": 0.8174966032608696,
+      "height": 0.0991234049907348
     },
     {
       "page": 3,
-      "x": 0.107563,
-      "y": 0.118765,
-      "width": 0.447059,
-      "height": 0.06057,
-      "part": "ms"
-    },
-    {
-      "page": 3,
-      "x": 0.554622,
-      "y": 0.118765,
-      "width": 0.37479,
-      "height": 0.06057,
       "parts": [
-        "md",
-        "ms"
-      ]
+        "md"
+      ],
+      "x": 0.12259850543478261,
+      "y": 0.1149174771730051,
+      "width": 0.8047690217391305,
+      "height": 0.06769368141100113
     },
     {
       "page": 3,
-      "x": 0.107563,
-      "y": 0.188836,
-      "width": 0.447059,
-      "height": 0.053444,
-      "part": "ms"
-    },
-    {
-      "page": 3,
-      "x": 0.554622,
-      "y": 0.188836,
-      "width": 0.37479,
-      "height": 0.053444,
       "parts": [
-        "md",
+        "md"
+      ],
+      "x": 0.12486752717391304,
+      "y": 0.3811148022620568,
+      "width": 0.8027173913043478,
+      "height": 0.0818027325185064
+    },
+    {
+      "page": 1,
+      "parts": [
         "ms"
-      ]
+      ],
+      "x": 0.1357336956521739,
+      "y": 0.22657052605301817,
+      "width": 0.7911039402173914,
+      "height": 0.10824460169174197
+    },
+    {
+      "page": 1,
+      "parts": [
+        "ms"
+      ],
+      "x": 0.11763247282608695,
+      "y": 0.5629434581817134,
+      "width": 0.8099898097826087,
+      "height": 0.10010273347863241
+    },
+    {
+      "page": 1,
+      "parts": [
+        "ms"
+      ],
+      "x": 0.11916779891304348,
+      "y": 0.8211645367872265,
+      "width": 0.8073233695652173,
+      "height": 0.10227261816750366
+    },
+    {
+      "page": 2,
+      "parts": [
+        "ms"
+      ],
+      "x": 0.12613790760869564,
+      "y": 0.20226493715975535,
+      "width": 0.8018206521739131,
+      "height": 0.10501617812256969
+    },
+    {
+      "page": 2,
+      "parts": [
+        "ms"
+      ],
+      "x": 0.12304347826086956,
+      "y": 0.5150427736118979,
+      "width": 0.8035122282608695,
+      "height": 0.10298311138421357
+    },
+    {
+      "page": 2,
+      "parts": [
+        "ms"
+      ],
+      "x": 0.10943614130434783,
+      "y": 0.8245777846053403,
+      "width": 0.8135767663043478,
+      "height": 0.09662947778748565
     },
     {
       "page": 3,
-      "x": 0.107563,
-      "y": 0.376485,
-      "width": 0.821849,
-      "height": 0.065321,
       "parts": [
-        "md",
         "ms"
-      ]
+      ],
+      "x": 0.12361073369565218,
+      "y": 0.18496106689197622,
+      "width": 0.8039945652173912,
+      "height": 0.07103491978147536
     },
     {
       "page": 3,
-      "x": 0.107563,
-      "y": 0.482185,
-      "width": 0.821849,
-      "height": 0.055819,
       "parts": [
-        "md",
         "ms"
-      ]
+      ],
+      "x": 0.12549252717391304,
+      "y": 0.46497460466813245,
+      "width": 0.801171875,
+      "height": 0.08421024838458802
     }
   ],
-  "notes": "This excerpt retains printed bars 55–71. The source MIDI files are preserved unchanged and do not form a clean staff or hand split: MD contains the highest notes through bar 63, is then silent until bar 68, and duplicates MS from partway through bar 68 to the end. Shared score areas fade only when both parts are muted; the mapping is deliberately conservative. Neither MIDI contains a tempo event and the PDF has no tempo marking, so playback starts at 120 quarter-note beats per minute.",
+  "notes": "This excerpt retains printed bars 55–71. The revised MIDI files have no duplicated note onsets between MD and MS. Both use the same beat timeline; their endpoints differ by one MIDI tick, and the score map retains the full 68 quarter-note beats. Some printed staves contain notes from both MIDI parts, so those shared areas fade only when both parts are muted. Neither MIDI contains a tempo event and the PDF has no tempo marking, so the default is 120 bpm; use bpm=72 in the link for the intended rehearsal tempo.",
   "source": {
     "pdf": "Haiku - Parsa 2nd Version.pdf",
     "midiPpq": 96,
     "midiEndTick": 6526,
     "midiNoteCounts": {
-      "md": 99,
-      "ms": 374
+      "md": 196,
+      "ms": 223
     },
-    "sharedNoteOnCount": 53,
-    "sharedEndingStartBeat": 54.604167,
-    "mapping": "Manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left."
+    "sharedNoteOnCount": 0,
+    "mapping": "Bar positions manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left. Mixed or uncertain staff areas are shared conservatively for the revised MIDI exports; verified lower staves on pages 1 and 2 remain MS-only.",
+    "midiUpdated": "2026-10-14",
+    "midiPlayableNoteCounts": {
+      "md": 195,
+      "ms": 223
+    },
+    "midiEndTicks": {
+      "md": 6526,
+      "ms": 6525
+    }
   }
 }
