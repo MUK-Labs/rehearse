@@ -31,7 +31,7 @@ Both parameters work independently and remain in the link when switching pieces.
 
 The original PDF and MIDI files are included unchanged. The PDF has three pages, common time and 17 bars, starting at printed bar 55. Neither MIDI contains a tempo event, and the PDF has no tempo marking, so the example starts at **120 bpm**.
 
-The supplied `md.mid` and `ms.mid` do **not** form a clean split by hand or staff. MD contains the highest notes through bar 63, then rests until partway through bar 68; its ending duplicates material in MS. The controls therefore retain the neutral labels **MD / MS**. Conservative shared-area mapping avoids greying out another active part's notation. Both files play as supplied, including the overlapping ending; corrected exports can replace them later.
+The revised `md.mid` and `ms.mid` exports (14 October 2026) have no duplicated note onsets between the parts. Their endpoints differ by one MIDI tick; both use the same playback clock, and the map retains the full 68 quarter-note beats. The controls keep the source labels **MD / MS**. Existing shared score areas fade only when both parts are muted; use **Edit map** to adjust their ownership as needed. For the intended rehearsal tempo, use `bpm=72` in the link.
 
 ## Adding a piece
 
@@ -106,6 +106,8 @@ npm run check
 ```
 
 The checks cover MIDI timing, playback transport, map validation, referenced assets and piano sample hashes. They require no package installation or Python PDF parser.
+
+MIDI parser regressions use fixed test examples, so replacing a library MIDI does not require updating hard-coded note counts. `npm run check` validates the current library files and their compatibility with the score map; part files may have different end ticks.
 
 For GitHub Pages, select **Settings → Pages → Source → GitHub Actions** and run the repository's Pages workflow. It validates the project and publishes the static files. The piece URL is then `https://muk-labs.github.io/rehearse/?piece=QuasiCampane`.
 

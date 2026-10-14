@@ -112,7 +112,7 @@ export function parseMidi(input) {
   const finish = (note, tick) => {
     const duration = (tick - note.tick) / ppq;
     // A note-on/off at the same tick has no audible duration. Do not invent a
-    // grace-note length (the supplied ms.mid contains one such MIDI artifact).
+    // grace-note length for such MIDI artifacts.
     if (duration > 0) notes.push({
       midi: note.midi, time: note.tick / ppq, duration,
       velocity: note.velocity, channel: note.channel, track: note.track,

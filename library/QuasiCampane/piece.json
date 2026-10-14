@@ -374,17 +374,25 @@
       ]
     }
   ],
-  "notes": "This excerpt retains printed bars 55–71. The source MIDI files are preserved unchanged and do not form a clean staff or hand split: MD contains the highest notes through bar 63, is then silent until bar 68, and duplicates MS from partway through bar 68 to the end. Shared score areas fade only when both parts are muted; the mapping is deliberately conservative. Neither MIDI contains a tempo event and the PDF has no tempo marking, so playback starts at 120 quarter-note beats per minute.",
+  "notes": "This excerpt retains printed bars 55–71. The revised MIDI files have no duplicated note onsets between MD and MS. Both use the same beat timeline; their endpoints differ by one MIDI tick, and the score map retains the full 68 quarter-note beats. Existing shared score areas fade only when both parts are muted; their ownership can be adjusted in Edit map. Neither MIDI contains a tempo event and the PDF has no tempo marking, so the default is 120 bpm; use bpm=72 in the link for the intended rehearsal tempo.",
   "source": {
     "pdf": "Haiku - Parsa 2nd Version.pdf",
     "midiPpq": 96,
     "midiEndTick": 6526,
     "midiNoteCounts": {
-      "md": 99,
-      "ms": 374
+      "md": 196,
+      "ms": 223
     },
-    "sharedNoteOnCount": 53,
-    "sharedEndingStartBeat": 54.604167,
-    "mapping": "Manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left."
+    "sharedNoteOnCount": 0,
+    "mapping": "Manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left.",
+    "midiUpdated": "2026-10-14",
+    "midiPlayableNoteCounts": {
+      "md": 195,
+      "ms": 223
+    },
+    "midiEndTicks": {
+      "md": 6526,
+      "ms": 6525
+    }
   }
 }

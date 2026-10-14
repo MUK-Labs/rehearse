@@ -1,6 +1,5 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import { parseMidi } from '../js/midi.js';
 import { PianoPlayer } from '../js/audio.js';
 
@@ -15,20 +14,25 @@ function midiFile(tracks, ppq = 96, format = tracks.length > 1 ? 1 : 0) {
 }
 const end = [0, 0xff, 0x2f, 0];
 
-test('the actual QuasiCampane files share a beat timeline and keep performed timing', async () => {
-  const right = parseMidi(await readFile(new URL('../library/QuasiCampane/md.mid', import.meta.url)));
-  const left = parseMidi(await readFile(new URL('../library/QuasiCampane/ms.mid', import.meta.url)));
-  assert.equal(right.notes.length, 99);
-  // ms.mid has 374 note-ons, but E5 at tick 3284 has its note-off at the
-  // same tick. There are 373 positive-duration notes to play.
-  assert.equal(left.notes.length, 373);
-  assert.equal(right.ppq, 96);
-  assert.equal(left.duration, right.duration);
-  assert.equal(right.duration, 6526 / 96);
-  assert.equal(right.notes[1].time, 38 / 96);
-  assert.equal(right.notes[0].midi, 83);
-  assert.equal(left.notes[0].midi, 55);
-  assert.deepEqual(right.warnings, []);
+test('performed timing is preserved and zero-length notes are omitted', () => {
+  // Keep parser regression data independent of editable repertoire files.
+  // The library validator checks the current PDF/MIDI assets separately.
+  const result = parseMidi(midiFile([[
+    0, 0x90, 83, 96,
+    38, 0x90, 89, 88,
+    10, 0x80, 83, 0,
+    38, 0x80, 89, 0,
+    0, 0x90, 76, 43,
+    0, 0x80, 76, 0,
+    ...end,
+  ]]));
+  assert.deepEqual(result.notes.map(({midi, time, duration}) => ({midi, time, duration})), [
+    {midi: 83, time: 0, duration: 48 / 96},
+    {midi: 89, time: 38 / 96, duration: 48 / 96},
+  ]);
+  assert.equal(result.ppq, 96);
+  assert.equal(result.duration, 86 / 96);
+  assert.deepEqual(result.warnings, []);
 });
 
 test('running status and velocity-zero note-off produce one correctly timed note', () => {
@@ -109,8 +113,9 @@ function readyPlayer(parts, onEnded) {
 const note = (midi, time = 0, duration = 4) => ({ midi, time, duration, velocity: 0.8 });
 
 test('parts schedule against the same audio clock, with sample transposition', async () => {
-  const { player, context } = readyPlayer([{ id: 'right', notes: [note(72)] }, { id: 'left', notes: [note(48)] }]);
+  const { player, context } = readyPlayer([{ id: 'right', notes: [note(72)] }, { id: 'left', notes: [note(48, 0, 3)] }]);
   try {
+    assert.equal(player.duration, 4); // Parts need not end together to share a clock.
     await player.play(0);
     assert.equal(context.sources.length, 2);
     assert.equal(context.sources[0].starts[0][0], context.sources[1].starts[0][0]);
