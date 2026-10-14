@@ -29,9 +29,9 @@ Both parameters work independently and remain in the link when switching pieces.
 
 ### About the QuasiCampane example
 
-The original PDF and MIDI files are included unchanged. The PDF has three pages, common time and 17 bars, starting at printed bar 55. Neither MIDI contains a tempo event, and the PDF has no tempo marking, so the example starts at **120 bpm**.
+The supplied PDF and current MIDI exports are kept unmodified. The PDF has three pages, common time and 17 bars, starting at printed bar 55. Neither MIDI contains a tempo event, and the PDF has no tempo marking, so the example starts at **120 bpm**.
 
-The revised `md.mid` and `ms.mid` exports (14 October 2026) have no duplicated note onsets between the parts. Their endpoints differ by one MIDI tick; both use the same playback clock, and the map retains the full 68 quarter-note beats. The controls keep the source labels **MD / MS**. Existing shared score areas fade only when both parts are muted; use **Edit map** to adjust their ownership as needed. For the intended rehearsal tempo, use `bpm=72` in the link.
+The revised `md.mid` and `ms.mid` exports (14 October 2026) have no duplicated note onsets between the parts. Their endpoints differ by one MIDI tick; both use the same playback clock, and the map retains the full 68 quarter-note beats. The controls keep the source labels **MD / MS**. Some printed staves contain notes from both MIDI parts. These areas now have conservative shared ownership and fade only when both parts are muted; verified lower staves on pages 1 and 2 still fade with MS. For the intended rehearsal tempo, use `bpm=72` in the link.
 
 ## Adding a piece
 

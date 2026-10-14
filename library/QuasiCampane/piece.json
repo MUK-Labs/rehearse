@@ -163,7 +163,10 @@
       "y": 0.192399,
       "width": 0.821849,
       "height": 0.064133,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 1,
@@ -190,7 +193,10 @@
       "y": 0.526128,
       "width": 0.821849,
       "height": 0.064133,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 1,
@@ -217,7 +223,10 @@
       "y": 0.787411,
       "width": 0.821849,
       "height": 0.064133,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 1,
@@ -244,7 +253,10 @@
       "y": 0.171021,
       "width": 0.821849,
       "height": 0.064133,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 2,
@@ -271,7 +283,10 @@
       "y": 0.420428,
       "width": 0.398319,
       "height": 0.061758,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 2,
@@ -279,7 +294,10 @@
       "y": 0.491686,
       "width": 0.821849,
       "height": 0.051069,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 2,
@@ -295,7 +313,10 @@
       "y": 0.735154,
       "width": 0.821849,
       "height": 0.058195,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 2,
@@ -303,7 +324,10 @@
       "y": 0.804038,
       "width": 0.821849,
       "height": 0.053444,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 2,
@@ -319,7 +343,10 @@
       "y": 0.118765,
       "width": 0.447059,
       "height": 0.06057,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 3,
@@ -338,7 +365,10 @@
       "y": 0.188836,
       "width": 0.447059,
       "height": 0.053444,
-      "part": "ms"
+      "parts": [
+        "md",
+        "ms"
+      ]
     },
     {
       "page": 3,
@@ -374,7 +404,7 @@
       ]
     }
   ],
-  "notes": "This excerpt retains printed bars 55–71. The revised MIDI files have no duplicated note onsets between MD and MS. Both use the same beat timeline; their endpoints differ by one MIDI tick, and the score map retains the full 68 quarter-note beats. Existing shared score areas fade only when both parts are muted; their ownership can be adjusted in Edit map. Neither MIDI contains a tempo event and the PDF has no tempo marking, so the default is 120 bpm; use bpm=72 in the link for the intended rehearsal tempo.",
+  "notes": "This excerpt retains printed bars 55–71. The revised MIDI files have no duplicated note onsets between MD and MS. Both use the same beat timeline; their endpoints differ by one MIDI tick, and the score map retains the full 68 quarter-note beats. Some printed staves contain notes from both MIDI parts, so those shared areas fade only when both parts are muted. Neither MIDI contains a tempo event and the PDF has no tempo marking, so the default is 120 bpm; use bpm=72 in the link for the intended rehearsal tempo.",
   "source": {
     "pdf": "Haiku - Parsa 2nd Version.pdf",
     "midiPpq": 96,
@@ -384,7 +414,7 @@
       "ms": 223
     },
     "sharedNoteOnCount": 0,
-    "mapping": "Manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left.",
+    "mapping": "Bar positions manually checked against all three PDF pages. Coordinates are fractions of each page, measured from the top left. Mixed or uncertain staff areas are shared conservatively for the revised MIDI exports; verified lower staves on pages 1 and 2 remain MS-only.",
     "midiUpdated": "2026-10-14",
     "midiPlayableNoteCounts": {
       "md": 195,
