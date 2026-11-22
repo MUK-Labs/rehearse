@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3f2ee">
+  <meta name="description" content="Prepare a score setlist and turn pages or selected passages in fullscreen.">
+  <title>Performance · Rehearse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="performance.css">
+</head>
+<body class="performance">
+  <header class="toolbar performance-toolbar">
+    <a class="wordmark" href="./">rehearse<span>.</span></a>
+    <nav class="mode-nav" aria-label="Rehearse modes">
+      <a href="./">Rehearsal</a>
+      <a href="performance.html" aria-current="page">Performance</a>
+    </nav>
+    <button id="start" class="solid-button performance-start" disabled>Start performance <span aria-hidden="true">↗</span></button>
+  </header>
+  <main class="performance-main">
+    <div class="performance-heading"><h1>Performance</h1></div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <div class="performance-workspace">
+      <aside class="performance-panel" aria-label="Performance setup">
+        <section>
+          <h2>Setlist</h2>
+          <form id="setlist-form" class="performance-form">
+            <label class="field">Public CSV URL<input id="csv-url" type="url" placeholder="https://…" required></label>
+            <button class="quiet-button" type="submit">Load CSV</button>
+          </form>
+          <div class="performance-actions">
+            <button id="local-csv-button" class="quiet-button" type="button">Open CSV file</button>
+            <button id="local-pdfs-button" class="quiet-button" type="button">Add PDFs</button>
+            <input id="local-csv" type="file" accept=".csv,text/csv" hidden>
+            <input id="local-pdfs" type="file" accept=".pdf,application/pdf" multiple hidden>
+          </div>
+          <label class="field">Score<select id="score-pick"></select></label>
+          <div class="performance-actions">
+            <button id="score-up" class="quiet-button" type="button" aria-label="Move score up">↑</button>
+            <button id="score-down" class="quiet-button" type="button" aria-label="Move score down">↓</button>
+            <button id="remove-score" class="quiet-button" type="button">Remove</button>
+            <button id="attach-button" class="quiet-button" type="button" title="Use a local PDF for the selected score">Attach PDF</button>
+            <input id="attach-pdf" type="file" accept=".pdf,application/pdf" hidden>
+          </div>
+          <a id="source-pdf" href="#" target="_blank" rel="noopener" hidden>Open original PDF ↗</a>
+        </section>
+        <section>
+          <h2>Passages</h2>
+          <p class="help">Drag a box on the preview or add the whole page. With an empty list, the score advances by full pages.</p>
+          <label class="field">Order in this score<select id="region-pick"></select></label>
+          <div class="performance-actions">
+            <button id="region-up" class="quiet-button" aria-label="Move passage up">↑</button>
+            <button id="region-down" class="quiet-button" aria-label="Move passage down">↓</button>
+            <button id="remove-region" class="quiet-button">Remove</button>
+            <button id="add-page" class="quiet-button">Add whole page</button>
+          </div>
+        </section>
+        <section class="midi-settings">
+          <h2>MIDI pedal</h2>
+          <div class="performance-actions">
+            <button id="connect-midi" class="quiet-button">Connect MIDI</button>
+            <button id="learn-previous" class="quiet-button" disabled>Learn Previous</button>
+            <button id="learn-next" class="quiet-button" disabled>Learn Next</button>
+          </div>
+          <p id="midi-status" class="help" role="status">Arrow keys and keyboard pedals also turn pages.</p>
+        </section>
+        <section>
+          <h2>Save and prepare</h2>
+          <div class="performance-actions">
+            <button id="export" class="quiet-button">Export setlist</button>
+            <button id="import-button" class="quiet-button">Import setlist</button>
+            <input id="import" type="file" accept=".json,application/json" hidden>
+            <button id="offline" class="quiet-button">Prepare for offline use</button>
+          </div>
+          <p id="offline-status" class="help" role="status"></p>
+        </section>
+      </aside>
+      <section class="performance-preview" aria-label="Score preview">
+        <div class="preview-bar">
+          <h2 id="preview-title">Score preview</h2>
+          <div class="performance-actions">
+            <button id="preview-prev" class="quiet-button" aria-label="Previous PDF page">←</button>
+            <label class="preview-page-select">Page <select id="page-pick" aria-label="PDF page"></select></label>
+            <button id="preview-next" class="quiet-button" aria-label="Next PDF page">→</button>
+          </div>
+        </div>
+        <div class="preview-page-area" id="preview-area">
+          <p id="preview-message" role="status">Opening the score…</p>
+          <div class="preview-page" id="preview-page" hidden>
+            <canvas id="preview-canvas" role="img" aria-label="PDF preview"></canvas>
+            <div id="crop-layer"><div class="crop-box" id="crop-box" hidden></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <section id="stage" class="performance-stage" aria-label="Performance view" hidden>
+    <div id="stage-score" class="stage-score"></div>
+    <button id="stage-prev" class="stage-hit stage-hit-prev" aria-label="Previous view"><span aria-hidden="true">‹</span></button>
+    <button id="stage-next" class="stage-hit stage-hit-next" aria-label="Next view"><span aria-hidden="true">›</span></button>
+    <div class="stage-controls">
+      <button id="stage-exit" class="quiet-button">Exit performance</button>
+      <span id="stage-position" role="status"></span>
+    </div>
+    <p id="stage-error" class="status error" role="status" hidden></p>
+  </section>
+  <noscript><p class="status error">Performance mode needs JavaScript to display your scores.</p></noscript>
+  <script type="module" src="js/performance.js"></script>
+</body>
+</html>

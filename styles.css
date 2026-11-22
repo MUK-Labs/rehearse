@@ -7,3 +7,5 @@ body.fullscreen .score-page{border:0;box-shadow:none}
 body.fullscreen .status:not(:empty){margin:0;padding:10px 16px;border-radius:0}
 body.fullscreen.mapping main{margin-right:320px}
 @media(max-width:760px){body.fullscreen.mapping main{margin-right:0;padding-bottom:72vh}}
+
+.performance-link{white-space:nowrap}
