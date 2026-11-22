@@ -1,9 +1,8 @@
-import * as pdfjs from '../vendor/pdfjs/pdf.mjs';
+import { openPdf } from './pdf.js';
 import { parseMidi } from './midi.js';
 import { PianoPlayer } from './audio.js';
 import { validatePiece, currentBar, inferBars, regionParts } from './model.js';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('../vendor/pdfjs/pdf.worker.mjs', import.meta.url).href;
 const $ = id => document.getElementById(id);
 const clone = value => structuredClone(value);
 const parameters = new URL(location.href).searchParams;
@@ -64,7 +63,7 @@ async function openPiece(original, resolveFile, token, key) {
   } catch { /* Invalid or unavailable browser storage does not prevent loading. */ }
   const parsedParts = await Promise.all(piece.parts.map(async part => ({...part, ...parseMidi(await getBytes(resolveFile(part.midi)))})));
   if (token !== state.loadId) return;
-  const documentTask = pdfjs.getDocument({url:resolveFile(piece.pdf), cMapUrl:new URL('../vendor/pdfjs/cmaps/', import.meta.url).href, cMapPacked:true, standardFontDataUrl:new URL('../vendor/pdfjs/standard_fonts/', import.meta.url).href, wasmUrl:new URL('../vendor/pdfjs/wasm/', import.meta.url).href});
+  const documentTask = openPdf({url:resolveFile(piece.pdf)});
   const doc = await documentTask.promise;
   if (token !== state.loadId) { await doc.destroy(); return; }
   for (const item of [...piece.bars, ...piece.regions]) if (item.page > doc.numPages) { await doc.destroy(); throw new Error('A map position points beyond the last PDF page.'); }

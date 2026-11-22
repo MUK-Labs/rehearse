@@ -124,6 +124,9 @@ async function harness({ pageGate, badPiece, query = '?piece=First' } = {}) {
     devicePixelRatio: 1, innerHeight: 900, requestAnimationFrame() {}, setTimeout() {},
     localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value) },
   });
+  const pdfSource = await readFile(new URL('../js/pdf.js', import.meta.url), 'utf8');
+  vm.runInContext(pdfSource.replace(/^import .*$/gm, '').replace('export function', 'function')
+    .replaceAll('import.meta.url', "'https://example.test/rehearse/js/pdf.js'"), context, {filename: 'pdf.js'});
   let source = await readFile(new URL('../js/app.js', import.meta.url), 'utf8');
   source = source.replace(/^import .*$/gm, '').replaceAll('import.meta.url', "'https://example.test/rehearse/js/app.js'");
   source = source.replace(/\bboot\(\);\s*$/, 'globalThis.bootPromise = boot();');

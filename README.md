@@ -33,6 +33,31 @@ The supplied PDF and current MIDI exports are kept unmodified. The PDF has three
 
 The revised `md.mid` and `ms.mid` exports (14 October 2026) have no duplicated note onsets between the parts. Their endpoints differ by one MIDI tick; both use the same playback clock, and the map retains the full 68 quarter-note beats. The controls keep the source labels **MD / MS**. Some printed staves contain notes from both MIDI parts. These areas now have conservative shared ownership and fade only when both parts are muted; verified lower staves on pages 1 and 2 still fade with MS. For the intended rehearsal tempo, use `bpm=72` in the link.
 
+## Performance mode
+
+Open **Performance** from the rehearsal toolbar, or visit [the Performance page](https://muk-labs.github.io/rehearse/performance.html). QuasiCampane is included as an example. Add local PDFs or load a public CSV to replace the setlist.
+
+### Load a setlist
+
+Use one score per row in concert order. Use direct HTTP(S) PDF URLs.
+
+```csv
+title,pdf_url
+QuasiCampane,https://muk-labs.github.io/rehearse/library/QuasiCampane/score.pdf
+```
+
+In Google Sheets, choose **File → Share → Publish to web**, select the setlist tab and publish it as **Comma-separated values (.csv)**. Paste the published URL into **Public CSV URL**. To share a link that opens the setlist, append `?setlist=` followed by the URL-encoded CSV URL to `performance.html`.
+
+A PDF on another site needs to allow Rehearse to read it through CORS. Rehearse tries the download endpoint for a Google Drive share link. If Drive returns a viewer, asks for sign-in or blocks the request, open the original link, download the PDF and use **Attach PDF** on that score. **Add PDFs** also works for files kept on the device. Local files stay in the browser.
+
+### Set up passages and page turns
+
+- Select a score and page. Drag a box around a passage, or use **Add whole page**. Use the passage arrows to change its place in the sequence. A sequence can repeat a region or jump between pages. A score with no passages advances through the full PDF.
+- **Start performance** opens the first view. Use the arrow keys, Page Up/Down, or tap either side. Use Escape, or tap the centre to show **Exit performance**. The score fills the viewport on browsers that do not allow native fullscreen.
+- For a MIDI pedal, press **Connect MIDI**, grant access, then select **Learn Previous** or **Learn Next** and press the pedal. Rehearse accepts Note On and CC switches that cross from below 64 to 64 or above. MIDI assignments are saved on this device. Use a pedal that sends keyboard keys on browsers without Web MIDI, including Safari.
+- Setlists and passages are saved in the browser. **Export setlist** produces a JSON file for sharing or backups. On another device, **Import setlist** restores the score list and passage order. Attach any local PDFs again.
+- Before going onstage, use **Prepare for offline use** and wait for the ready message. Keep the Performance page URL handy, disconnect, and reopen it on the device you'll perform with to check the set. Offline files are held in this browser's site data.
+
 ## Adding a piece
 
 1. Open **••• → Open PDF + MIDI files** and select **one PDF and all its MIDI files together**. Optionally include an existing `piece.json`. These files are read locally in your browser.
