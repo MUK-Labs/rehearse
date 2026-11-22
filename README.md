@@ -48,7 +48,17 @@ QuasiCampane,https://muk-labs.github.io/rehearse/library/QuasiCampane/score.pdf
 
 In Google Sheets, choose **File → Share → Publish to web**, select the setlist tab and publish it as **Comma-separated values (.csv)**. Paste the published URL into **Public CSV URL**. To share a link that opens the setlist, append `?setlist=` followed by the URL-encoded CSV URL to `performance.html`.
 
-A PDF on another site needs to allow Rehearse to read it through CORS. Rehearse tries the download endpoint for a Google Drive share link. If Drive returns a viewer, asks for sign-in or blocks the request, open the original link, download the PDF and use **Attach PDF** on that score. **Add PDFs** also works for files kept on the device. Local files stay in the browser.
+A PDF on another site needs to allow Rehearse to read it through CORS. For PDFs stored in Google Drive, follow the setup below. **Attach PDF** lets you use a downloaded file for a particular score. **Add PDFs** also works for files kept on the device. Local files stay in the browser.
+
+### Download a setlist from Google Drive
+
+Keep the Drive share links in the `pdf_url` column. Each PDF needs to be downloadable by **Anyone with the link**.
+
+1. Use a Google Cloud project with the [Google Drive API enabled](https://console.cloud.google.com/apis/library/drive.googleapis.com). Create a [standard API key](https://developers.google.com/workspace/guides/create-credentials#api-key) with no service account attached.
+2. In the key's application restrictions, choose **Websites** and allow `https://muk-labs.github.io/*`. In the API restrictions, allow **Google Drive API** only.
+3. Load the CSV in Rehearse, open **Google Drive setup**, and save the key. Choose **Prepare for offline use** to download, verify, and save the entire setlist in this browser.
+
+Running offline preparation while online refreshes PDFs from Drive. Rehearse keeps a previously saved copy if the refresh fails. For a score you previously attached by hand, **Use Drive source** switches it back after Rehearse successfully reads the Drive PDF. The key stays in this browser, separate from the setlist export.
 
 ### Set up passages and page turns
 

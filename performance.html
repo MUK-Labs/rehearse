@@ -41,6 +41,7 @@
             <button id="score-down" class="quiet-button" type="button" aria-label="Move score down">↓</button>
             <button id="remove-score" class="quiet-button" type="button">Remove</button>
             <button id="attach-button" class="quiet-button" type="button" title="Use a local PDF for the selected score">Attach PDF</button>
+            <button id="use-drive" class="quiet-button" type="button" hidden>Use Drive source</button>
             <input id="attach-pdf" type="file" accept=".pdf,application/pdf" hidden>
           </div>
           <a id="source-pdf" href="#" target="_blank" rel="noopener" hidden>Open original PDF ↗</a>
@@ -74,6 +75,18 @@
             <button id="offline" class="quiet-button">Prepare for offline use</button>
           </div>
           <p id="offline-status" class="help" role="status"></p>
+          <details id="drive-settings" hidden>
+            <summary>Google Drive setup</summary>
+            <p class="help">Save a restricted Google Drive API key on this browser. Then prepare the setlist to download its Drive PDFs. <a href="https://github.com/MUK-Labs/rehearse#download-a-setlist-from-google-drive" target="_blank" rel="noopener">Setup instructions ↗</a></p>
+            <form id="drive-form" class="performance-form">
+              <label class="field">Drive API key<input id="drive-key" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required></label>
+              <div class="performance-actions">
+                <button id="save-drive-key" class="quiet-button" type="submit">Save key</button>
+                <button id="remove-drive-key" class="quiet-button" type="button" disabled>Remove key</button>
+              </div>
+            </form>
+            <p id="drive-status" class="help" role="status"></p>
+          </details>
         </section>
       </aside>
       <section class="performance-preview" aria-label="Score preview">

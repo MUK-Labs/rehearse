@@ -155,6 +155,19 @@
   width: 100%;
 }
 
+#drive-settings {
+  margin-top: 12px;
+}
+
+#drive-settings > summary {
+  font-size: 13px;
+  color: var(--accent);
+}
+
+#drive-settings .help a {
+  text-decoration: underline;
+}
+
 .midi-settings [aria-pressed="true"] {
   border-color: var(--accent);
   background: var(--tint);
