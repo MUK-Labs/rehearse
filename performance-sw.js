@@ -46,6 +46,7 @@ const assets = new Set([
   'js/pdf.js',
   'js/performance.js',
   'js/performance-model.js',
+  'js/performance-drive.js',
   'js/performance-render.js',
   'js/performance-midi.js',
   'js/performance-offline.js',

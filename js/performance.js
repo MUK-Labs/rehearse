@@ -1,5 +1,6 @@
 import { openPdf } from './pdf.js';
 import { buildPerformanceViews, normalizePerformanceRegions, normalizePublicUrl, parseSetlistCsv, wholePage } from './performance-model.js';
+import { downloadDrivePdf, parseDriveFile } from './performance-drive.js';
 import { setupPerformanceMidi } from './performance-midi.js';
 import { hasPerformanceOfflineShell, preparePerformanceOffline } from './performance-offline.js';
 import { createScoreRenderer, renderScoreCanvas } from './performance-render.js';
@@ -10,6 +11,7 @@ const stage = $('stage');
 const pdfs = new Map();
 const temporaryPdfs = new Map();
 const storageKey = 'rehearse.performance.setlist.v1';
+const driveKeyStorage = 'rehearse.performance.driveKey.v1';
 const sample = {
   id: 'quasi-campane',
   title: 'QuasiCampane',
@@ -37,8 +39,10 @@ let importing = false;
 let preparingOffline = false;
 let stagePdfs = new Map();
 let offlineCheck = 0;
+let driveApiKey = '';
 
 const currentScore = () => scores[scoreIndex];
+const driveFile = score => parseDriveFile(score?.driveUrl || score?.url);
 const renderer = createScoreRenderer(id => getDocument(scores.find(score => score.id === id)));
 
 function status(message = '', error = false) {
@@ -97,6 +101,10 @@ function enableEditorActions() {
   $('score-down').disabled = !score || scoreIndex >= scores.length - 1 || locked;
   $('remove-score').disabled = !score || locked;
   $('attach-button').disabled = !score || locked;
+  $('use-drive').disabled = locked;
+  $('drive-key').disabled = locked;
+  $('save-drive-key').disabled = locked;
+  $('remove-drive-key').disabled = locked || !driveApiKey;
   const regions = score?.regions ?? [];
   $('region-pick').disabled = !regions.length || locked;
   $('region-up').disabled = selectedRegion <= 0 || locked;
@@ -115,7 +123,9 @@ function updateScores() {
   $('preview-title').textContent = score?.title || 'Score preview';
   const link = $('source-pdf');
   link.hidden = !score?.url;
-  if (score?.url) link.href = score.driveUrl || score.url;
+  if (score?.url) link.href = driveFile(score)?.url || score.driveUrl || score.url;
+  $('use-drive').hidden = !(score?.fileKey && driveFile(score));
+  $('drive-settings').hidden = !scores.some(driveFile);
   updateRegions();
 }
 
@@ -145,15 +155,18 @@ async function fetchResource(url, label) {
   return response;
 }
 
-async function readPdf(score) {
+async function readPdf(score, {refreshDrive = false} = {}) {
   const key = pdfKey(score);
+  const drive = driveFile(score);
+  const refresh = refreshDrive && drive && driveApiKey && !score.fileKey;
   if (stagePdfs.has(key)) return stagePdfs.get(key);
   if (temporaryPdfs.has(key)) return temporaryPdfs.get(key);
   const stored = await getStoredPdf(key).catch(() => null);
-  if (stored) return stored;
+  if (stored && !refresh) return stored;
   if (!score.url) throw new Error(`Attach the local PDF for “${score.title}” on this device.`);
 
   try {
+    if (drive && driveApiKey) return await downloadDrivePdf(drive, driveApiKey);
     const response = await fetchResource(score.url, `“${score.title}”`);
     const blob = await response.blob();
     if (!(await blob.slice(0, 1024).text()).includes('%PDF-')) {
@@ -161,8 +174,13 @@ async function readPdf(score) {
     }
     return blob;
   } catch (error) {
-    if (score.driveUrl) {
-      throw new Error(`Google Drive did not provide a readable PDF for “${score.title}”. Open the original, download it, then choose Attach PDF.`);
+    if (drive && !driveApiKey) {
+      $('drive-settings').open = true;
+      throw new Error('Set a key under Google Drive setup to download this PDF automatically, or choose Attach PDF.');
+    }
+    if (drive) {
+      const fallback = stored ? 'The previously saved copy is still available.' : 'You can also download the original and choose Attach PDF.';
+      throw new Error(`${error.message} ${fallback}`);
     }
     throw new Error(`${error.message} Open the original or choose Attach PDF to use a local copy.`);
   }
@@ -496,6 +514,21 @@ $('attach-pdf').addEventListener('change', event => {
   });
 });
 
+$('use-drive').addEventListener('click', () => {
+  const score = currentScore();
+  const source = {...score, fileKey: ''};
+  void runImport(async () => {
+    const blob = await readPdf(source, {refreshDrive: navigator.onLine});
+    await inspectFile(new File([blob], score.title, {type: blob.type}));
+    await storePdf(pdfKey(source), blob);
+    keepDocuments([]);
+    score.fileKey = '';
+    invalidateOfflineStatus();
+    save();
+    selectScore(scoreIndex);
+  });
+});
+
 $('export').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify({version: 1, csvUrl, scores}, null, 2)], {type: 'application/json'});
   const url = URL.createObjectURL(blob);
@@ -700,14 +733,56 @@ new ResizeObserver(() => {
   if (!stage.hidden && views.length) void showStageView();
 }).observe($('stage-score'));
 
+function showDriveKeyStatus(message) {
+  $('drive-status').textContent = message;
+  $('drive-key').value = '';
+  $('drive-key').placeholder = driveApiKey ? 'Key saved' : '';
+  enableEditorActions();
+}
+
+$('drive-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const key = $('drive-key').value.trim();
+  if (!/^[A-Za-z0-9_-]+$/.test(key)) {
+    $('drive-status').textContent = 'Enter a valid Google Cloud API key.';
+    return;
+  }
+  driveApiKey = key;
+  try {
+    localStorage.setItem(driveKeyStorage, key);
+    showDriveKeyStatus('Key saved on this browser.');
+  } catch {
+    showDriveKeyStatus('Key available in this tab. The browser could not remember it.');
+  }
+  if (driveFile(currentScore())) void showPreview(pageNumber);
+});
+
+$('remove-drive-key').addEventListener('click', () => {
+  try {
+    localStorage.removeItem(driveKeyStorage);
+  } catch {
+    $('drive-status').textContent = 'The browser could not remove the saved key.';
+    return;
+  }
+  driveApiKey = '';
+  showDriveKeyStatus('Key removed.');
+});
+
 $('offline').addEventListener('click', async () => {
   preparingOffline = true;
+  offlineCheck++;
   enableEditorActions();
+  const refreshed = new Set();
+  const refreshOnline = navigator.onLine && Boolean(driveApiKey);
   try {
     if (!save()) throw new Error('Offline preparation needs to save the setlist in this browser.');
     await preparePerformanceOffline(scores, {
-      readPdf,
-      storePdf: (score, blob) => storePdf(pdfKey(score), blob),
+      readPdf: score => readPdf(score, {refreshDrive: refreshOnline && !refreshed.has(pdfKey(score))}),
+      storePdf: async (score, blob) => {
+        const key = pdfKey(score);
+        await storePdf(key, blob);
+        if (refreshOnline && driveFile(score) && !score.fileKey) refreshed.add(key);
+      },
       onProgress: message => { $('offline-status').textContent = message; },
     });
     $('offline-status').textContent = 'This setlist is ready offline in this browser.';
@@ -715,7 +790,13 @@ $('offline').addEventListener('click', async () => {
     $('offline-status').textContent = error.message;
   } finally {
     preparingOffline = false;
-    enableEditorActions();
+    const score = currentScore();
+    if (score && refreshed.has(pdfKey(score))) {
+      keepDocuments([]);
+      void showPreview();
+    } else {
+      enableEditorActions();
+    }
   }
 });
 
@@ -738,6 +819,7 @@ setupPerformanceMidi({
 });
 
 try {
+  driveApiKey = localStorage.getItem(driveKeyStorage) || '';
   const saved = JSON.parse(localStorage.getItem(storageKey));
   if (saved) {
     scores = readSetlist(saved);
@@ -746,6 +828,7 @@ try {
 } catch {
   // The bundled sample still opens if browser storage is unavailable.
 }
+if (driveApiKey) showDriveKeyStatus('Key saved on this browser.');
 const requestedSetlist = new URL(location.href).searchParams.get('setlist');
 $('csv-url').value = requestedSetlist || csvUrl;
 selectScore(scores.length ? 0 : -1);
